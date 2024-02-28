@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
 """
-import unitteest
+import unittest
 from models.base_model import BaseModel
 
 class TestBasemodel(unittest.TestCase):
