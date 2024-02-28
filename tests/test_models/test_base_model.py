@@ -10,7 +10,7 @@ class TestBasemodel(unittest.TestCase):
 
         self.assertIsNotNone(my_model.id)
         self.assertIsNotNone(my_model.created_at)
-        self.assertisNotNone(my_model.updated_at)
+        self.assertIsNotNone(my_model.updated_at)
     def test_save(self):
         my_model = BaseModel()
         initial_updated_at = my_model.updated_at
