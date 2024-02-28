@@ -41,6 +41,6 @@ def do_create(self, arg)
   elif commands[0] not in self.valid_classes:
     print("** class doesn't exist**")
   else:
-      new instance = BaseModel ()
-      new_instance.save()
+      new instance = eval(f"{commands[0]}()")
+      storage.save()
       print(new_instance.id)
