@@ -23,13 +23,13 @@ def do EOF(self,line):
   """
   return True
 
-def do_quit(self, arg)
+def do_quit(self, arg):
   """
   Quit the program
   """
   return True
 
-def do_create(self, arg)
+def do_create(self, arg):
   """
   Create a new instance of BaseModel and save it to the JSON file.
   Usage: create <class_name>
