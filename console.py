@@ -245,46 +245,55 @@ class HBNBCommand(cmd.Cmd):
                 obj.save()
 
     def default(self, arg):
-        """
-        Default behavior for cmd module when input is invalid
-        """
-        arg_list = arg.split('.')
+    """
+    Default behavior for cmd module when input is invalid
+    """
+    arg_list = arg.split('.')
 
-        cls_nm = arg_list[0]  # incoming class name
+    if len(arg_list) < 2:
+        print("*** Incomplete command: {}".format(arg))
+        return False
 
-        command = arg_list[1].split('(')
+    cls_nm = arg_list[0]  # incoming class name
 
-        cmd_met = command[0]  # incoming command method
+    command = arg_list[1].split('(')
 
-        e_arg = command[1].split(')')[0]  # extra arguments
+    if len(command) < 2:
+        print("*** Incomplete command: {}".format(arg))
+        return False
 
-        method_dict = {
-                'all': self.do_all,
-                'show': self.do_show,
-                'destroy': self.do_destroy,
-                'update': self.do_update,
-                'count': self.do_count
-                }
+    cmd_met = command[0]  # incoming command method
+    e_arg = command[1].split(')')[0]  # extra arguments
 
-        if cmd_met in method_dict.keys():
-            if cmd_met != "update":
-                return method_dict[cmd_met]("{} {}".format(cls_nm, e_arg))
-            else:
-                if not cls_nm:
-                    print("** class name missing **")
-                    return
-                try:
-                    obj_id, arg_dict = split_curly_braces(e_arg)
-                except Exception:
-                    pass
-                try:
-                    call = method_dict[cmd_met]
-                    return call("{} {} {}".format(cls_nm, obj_id, arg_dict))
-                except Exception:
-                    pass
+    method_dict = {
+            'all': self.do_all,
+            'show': self.do_show,
+            'destroy': self.do_destroy,
+            'update': self.do_update,
+            'count': self.do_count
+            }
+
+    if cmd_met in method_dict:
+        if cmd_met != "update":
+            return method_dict[cmd_met]("{} {}".format(cls_nm, e_arg))
         else:
-            print("*** Unknown syntax: {}".format(arg))
-            return False
+            if not cls_nm:
+                print("** class name missing **")
+                return False
+            try:
+                obj_id, arg_dict = split_curly_braces(e_arg)
+            except Exception as e:
+                print("Error parsing arguments:", e)
+                return False
+            try:
+                call = method_dict[cmd_met]
+                return call("{} {} {}".format(cls_nm, obj_id, arg_dict))
+            except Exception as e:
+                print("Error executing method:", e)
+                return False
+    else:
+        print("*** Unknown command method: {}".format(cmd_met))
+        return False
 
 
 if __name__ == '__main__':
