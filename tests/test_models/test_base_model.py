@@ -44,18 +44,35 @@ class TestBasemodel(unittest.TestCase):
         self.assertIsNotNone(my_model.created_at)
         self.assertIsNotNone(my_model.updated_at)
 
-    def test_save(self):
-        """
-        Test for save method
-        """
-        my_model = BaseModel()
+    def test_one_save(self):
+        bm = BaseModel()
+        sleep(0.05)
+        first_updated_at = bm.updated_at
+        bm.save()
+        self.assertLess(first_updated_at, bm.updated_at)
 
-        initial_updated_at = my_model.updated_at
+    def test_two_saves(self):
+        bm = BaseModel()
+        sleep(0.05)
+        first_updated_at = bm.updated_at
+        bm.save()
+        second_updated_at = bm.updated_at
+        self.assertLess(first_updated_at, second_updated_at)
+        sleep(0.05)
+        bm.save()
+        self.assertLess(second_updated_at, bm.updated_at)
 
-        current_updated_at = my_model.save()
+    def test_save_with_arg(self):
+        bm = BaseModel()
+        with self.assertRaises(TypeError):
+            bm.save(None)
 
-        self.assertNotEqual(initial_updated_at, current_updated_at)
-
+    def test_save_updates_file(self):
+        bm = BaseModel()
+        bm.save()
+        bmid = "BaseModel." + bm.id
+        with open("file.json", "r") as f:
+            self.assertIn(bmid, f.read())
     def test_to_dict(self):
         """
         Test for to_dict method
