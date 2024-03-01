@@ -248,15 +248,15 @@ class HBNBCommand(cmd.Cmd):
         """
         Default behavior for cmd module when input is invalid
         """
-        arg_list = arg.split('.')
+    arg_list = arg.split('.')
 
     if len(arg_list) < 2:
         print("*** Incomplete command: {}".format(arg))
         return False
 
-        cls_nm = arg_list[0]  # incoming class name
+    cls_nm = arg_list[0]  # incoming class name
 
-        command = arg_list[1].split('(')
+    command = arg_list[1].split('(')
 
     if len(command) < 2:
         print("*** Incomplete command: {}".format(arg))
