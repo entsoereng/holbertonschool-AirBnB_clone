@@ -244,10 +244,10 @@ class HBNBCommand(cmd.Cmd):
 
                 obj.save()
 
-    def default(self, arg):
-        """
-        Default behavior for cmd module when input is invalid
-        """
+def default(self, arg):
+    """
+    Default behavior for cmd module when input is invalid
+    """
     arg_list = arg.split('.')
 
     if len(arg_list) < 2:
