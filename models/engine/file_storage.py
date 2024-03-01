@@ -4,9 +4,10 @@ import os
 from models.base_model import BaseModel
 from models.user import User
 
+
 class FileStorage:
     """
-    A simple file storage mechanism for managing instances of BaseModel objects.
+    File storage mechanism for managing instances of BaseModel objects.
     """
     __file_path = "file.json"
     __objects = {}
