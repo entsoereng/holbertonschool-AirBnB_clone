@@ -19,3 +19,12 @@ article h2, article .price_by_night{
     margin-top: 10px;
 
 }
+.max_guest{
+    width: 100px;
+}
+.number_rooms{
+    width: 100px;
+}
+.number_bathrooms{
+    width: 100px;
+}
